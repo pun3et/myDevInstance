@@ -35,8 +35,6 @@ recidData(result){
        
             this.testMethodInt()
         } 
-        
-       
     }
     else
     console.log('there is an error',result.error)

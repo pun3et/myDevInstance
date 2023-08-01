@@ -1,3 +1,4 @@
+/* Class to Generate Mock Response */
 @isTest
 global class CQPartsMockResponseClass implements HttpCalloutMock {
     // Implement this interface method

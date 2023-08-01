@@ -1,3 +1,4 @@
+//Class to store the returned data in CQ parts object
 public class ProcessPartsData {
     
     public static void processRecords(HTTPResponse res){
