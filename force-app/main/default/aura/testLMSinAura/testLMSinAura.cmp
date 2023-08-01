@@ -1,0 +1,29 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name='messValueAttr' type='string' />
+    <aura:attribute name='messageReceived' type='string' />
+    <lightning:messageChannel
+                              type="anyMessageChannelName__c" 
+                              aura:id="firstMsgChannel"
+                              onMessage="{!c.handleMsg}"
+                              scope="APPLICATION">
+    </lightning:messageChannel>
+    
+    <lightning:card title="Aura to LWC via LMS">
+        <div class="slds-p-around_medium">
+            <lightning:input name='Message' id='msg' value='{!v.messValueAttr}' onkeyup='{!c.messageChange}' label="Type Message"> Enter the message</lightning:input>		                        
+        </div>
+        <div>
+            <lightning:button name="Submitmessage" Label="Submit Message" onclick="{!c.publishMessage}">Submit Message</lightning:button>
+        </div>
+        
+    </lightning:card>
+    
+      <lightning:card title="LWC to Aura via LMS">
+          <div class="slds-p-around_medium">
+              <strong> Message Received:</strong>
+          <lightning:formattedText value="{!v.messageReceived}"></lightning:formattedText>
+          </div>
+        
+    </lightning:card>
+    
+</aura:component>

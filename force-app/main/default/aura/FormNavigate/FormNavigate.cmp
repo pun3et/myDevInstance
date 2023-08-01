@@ -1,0 +1,105 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                
+                access="global" >
+    
+    <aura:attribute name="Type" type="String" access="global"/>
+    <aura:attribute name="recordId" type="String" access="global"/>
+   <aura:attribute name="PhasedOpts" type="List" default="[
+                                                           {'label': 'Yes', 'value': 'yes'},
+                                                           {'label': 'No', 'value': 'no'}
+                                                           ]"/>
+    
+    <aura:attribute name="dataObject" type="Map" access="global"/>
+    
+
+    
+    <aura:attribute name="activeSections" type="List" default="['A','C']" />
+    <aura:attribute name="activeSectionsMessage" type="String" default="" />
+    
+    <aura:handler name="init" 
+                  value="{!this}"
+                  action="{!c.doInit}"/>
+    
+    <div  aura:id="container">
+        <div class="slds-box">
+            <!--<p>{! v.activeSectionsMessage }</p>-->
+            Case record Id= >{!v.recordId}
+            <lightning:accordion
+                                 allowMultipleSectionsOpen="true"
+                                 onsectiontoggle="{! c.handleSectionToggle }"
+                                 activeSectionName="{! v.activeSections }"
+                                 class="test2"
+                                 >
+                <lightning:accordionSection name="A" label="Drawdown">
+                    <lightning:layout multipleRows="true">
+            		<lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                         <lightning:radioGroup  aura:id="drawdown1" name="drawdown1" 
+                                               label="Does your client want to move the full value of their Pension Savings Account to Drawdown?"
+                                               options="{! v.PhasedOpts }"
+                                               value="{! v.dataObject.dropdown1 }"
+                                               class="customRadioCls"
+                                               onchange="{!c.Drawdownopt1}" /> 
+                                		</lightning:layoutItem>
+            		<lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                        <lightning:input type="number" name="DrawdownInput1" 
+                                                         label="Drawdown Amount" 
+                                                         placeholder="Enter Amount"  
+                                                         field="v.ServIllustration.PRU_DrawdownAmount__c"
+                                                         value="{!v.ServIllustration.PRU_DrawdownAmount__c}" 
+                                                         aura:id="DrawdownAmt1"
+                                                         formatter="currency" step="0.01" disabled="false"/>
+            		</lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                       sdfsfsdfssfdfsd
+            		</lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                      sfsdsfdsdfsddfAAAAAAA
+            		</lightning:layoutItem>
+					  <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                       VVVVVV
+            		</lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                      BBBBBB
+            		</lightning:layoutItem>
+					  <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                       EEEE
+            		</lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                      FFFFFF
+            		</lightning:layoutItem>
+					  <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                       TTTTTT
+            		</lightning:layoutItem>
+                        <lightning:layoutItem size="12" smallDeviceSize="6" mediumDeviceSize="6" largeDeviceSize="6" padding="around-small">
+                      HHHHHHH
+            		</lightning:layoutItem>
+                        
+                        
+                      
+                    </lightning:layout>
+                   
+                </lightning:accordionSection>
+                <lightning:accordionSection name="B" label="Accordion Title B">
+                    
+                </lightning:accordionSection>
+                <lightning:accordionSection name="C" label="Accordion Title C">
+                </lightning:accordionSection>
+            </lightning:accordion>
+            
+            <div class="slds-form-footer">
+                
+                
+                <lightning:button variant="brand" class="creat_class_btn uppercase " 
+                                  label="Next"  
+                                  iconName="utility:forward" iconPosition="right" 
+                                  onclick="{!c.next}" />
+            </div>
+            
+            
+            
+            
+        </div>
+    </div>
+    
+    
+</aura:component>

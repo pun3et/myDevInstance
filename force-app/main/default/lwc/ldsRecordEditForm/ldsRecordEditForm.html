@@ -1,0 +1,47 @@
+<template>
+    <lightning-card title="Record Edit form in creation mode">
+       <lightning-record-edit-form 
+        object-api-name={objName}    
+        onsuccess={handleSuccess}  
+        >
+        <lightning-messages></lightning-messages>
+        <lightning-input-field field-name={fields.conName}></lightning-input-field>
+        <lightning-input-field field-name={fields.bDate}></lightning-input-field>
+        <lightning-input-field field-name={fields.accId}></lightning-input-field>
+        <lightning-input-field class='email' field-name='Email'></lightning-input-field>
+        <lightning-button type="submit"  onclick={handleSubmit} label="Save"></lightning-button>
+        <lightning-button type="cancel" label="Cancel" onclick={handleCancel}></lightning-button>
+    </lightning-record-edit-form>
+    </lightning-card>
+<!--
+    <lightning-card title="Record Edit form in Edit mode">
+        <lightning-record-edit-form 
+         object-api-name={objName} 
+         record-id="003N000001yl3gJIAQ"     
+         >
+         <label class="slds-form-element_stacked">Chal naam bata </label>
+         <lightning-input-field class="slds-form-element_stacked" variant="label-hidden" field-name={fields.conName}></lightning-input-field>
+         <label class="slds-form-element_stacked">Paida kab hua ?</label>
+         <lightning-input-field class="slds-form-element_stacked" variant="label-hidden" field-name={fields.bDate}></lightning-input-field>
+         <label class="slds-form-element_stacked">Naukri kahan karta hai ?</label>
+         <lightning-input-field class="slds-form-element_stacked" variant="label-hidden"  field-name={fields.accId}></lightning-input-field>
+         <lightning-input-field field-name='Email'></lightning-input-field>
+     </lightning-record-edit-form>
+     </lightning-card>
+
+     <lightning-card title="Record Edit form in creation mode">
+        <lightning-record-edit-form 
+         object-api-name={objName} 
+         record-id="003N000001yl3gJIAQ"  
+         >
+          <lightning-input-field field-name={fields.conName}></lightning-input-field>
+         <lightning-input-field field-name={fields.Birthdate}></lightning-input-field>
+         <lightning-input-field field-name={fields.AccountId}></lightning-input-field>
+         <lightning-input-field field-name='Email'></lightning-input-field>
+        
+     </lightning-record-edit-form>
+     </lightning-card>
+      -->
+    
+  
+</template>

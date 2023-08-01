@@ -1,0 +1,632 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"  access="global" controller="Moneyoutclass" >
+    <!-- <ltng:require styles="{!$Resource.popupCSS}" /> -->
+    <aura:attribute name="percent" type="integer" />
+    <aura:attribute name="Taxable" type="integer" />
+    <aura:attribute name="num1" type="integer" />
+    <aura:attribute name="regnum" type="integer" />
+    <aura:attribute name="singleufpls" type="integer" />
+    <aura:attribute name="PhasedOpts" type="List" default="[
+                                                           {'label': 'Amount', 'value': ''},
+                                                           {'label': 'Percent', 'value': ''}
+                                                           ]"/>
+    <aura:attribute name="PhasedOpts1" type="List" default="[
+                                                           {'label': 'Yes', 'value': 'yes'},
+                                                           {'label': 'No', 'value': 'no'}
+                                                           ]"/>
+    <aura:attribute name="PhasedOpts2" type="List" default="[
+                                                        {'label': 'Yes', 'value': 'yes'},
+                                                        {'label': 'No', 'value': 'no'}
+                                                        ]"/>
+    
+    <aura:attribute name="drawdownPercent" type="integer"  />
+    <aura:attribute name="drawdownval1" type="String" />
+    <aura:attribute name="phdraw" type="integer" />
+    <aura:attribute name="AmountBalance" type="Asset"/>
+    <aura:attribute name="UserChoice" type="Boolean" default="False"/>
+    <aura:attribute name="UserChoice2" type="Boolean"/>
+    <!-- <aura:attribute name="options" type="List" default="[
+         {'label': 'Monthly', 'value': 'monthly'},
+         {'label': 'Yearly', 'value': 'yearly'},
+                     {'label': 'Quaterly', 'value': 'quaterly'},
+                                                                ]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}"/> -->
+    
+    <aura:attribute name="statusOptions" type="List" default="[]"/>
+    
+    <aura:handler name="init" value="{! this }" action="{! c.loadOptions }"/>
+    
+    <aura:attribute name="options" type="List" default="[
+                                                        {'label': 'Proportionately', 'value': 'yes'},
+                                                        {'label': 'Via Specific Assets', 'value': 'no'}
+                                                        ]"/>
+    <aura:attribute name="radioValue" type="String" default="yes"/>
+    <aura:attribute name="phasedradioValue" type="String" />
+    <aura:attribute name="phasedradioValue2" type="String" />
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="errors" type="Object" default="[]"/>
+    <aura:attribute name="draftValues" type="Object" default="[]"/>
+    
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    
+    <div class="slds-box slds-box_x-small" style="border: 2px solid black;margin:30px; background-color:#e6eeff">
+        <div style="font-size: 15px;"> <p>Enter the details of any benifits your client would like to take from Retirement Account(s)</p></div><br></br>
+      <h1>  <div class="slds-text-heading_large">Pension Saving Account {!v.AmountBalance.PRU_GrossAmount__c}$ </div> </h1>
+        <br></br><br></br>
+        <div class="slds-box">
+            <div class="slds-section slds-is-close" aura:id="MoneySection">
+                <!--section header-->
+                <h3 class="slds-section__title">
+                    <button aria-controls="MoneyOutOptions" class="slds-button slds-section__title-action">
+                        <span onclick="{!c.toggleSection}" data-auraId="MoneySection">
+                            <lightning:icon iconName="utility:switch"
+                                            size="x-small"
+                                            class="slds-section__title-action-icon slds-button__icon_left"
+                                            alternativeText="button icon" 
+                                            />
+                        </span>
+                        <span class="slds-truncate" title="MoneyOption1">Drawdown </span>
+                    </button>
+                </h3>
+                <!--section body-->
+                
+                <div class="slds-section__content" id="MoneyOutOptions">
+                    <hr></hr>
+                    <div style="font-size: 20px;"><b>Drawdown Details</b></div><br></br>
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <!-- <div><b>Does your client want to move the full value of their Pension Savings Account to Drawdown?</b></div> -->
+                              <p>Does your client want to move the full value of their Pension Savings Account to Drawdown?</p>
+                            <fieldset class="slds-box slds-theme--default slds-container--small">
+     
+                             <div class="slds-form-element__control,customRadioCls">
+                                    <span class="slds-radio">
+                                        <input type="radio" id="radio-43" value="radio-43" onclick="{!c.YesInput}" name="required" checked="" />
+                                        <label class="slds-radio__label" for="radio-43">
+                                            <span class="slds-radio_faux"></span>
+                                            <span class="slds-form-element__label,customRadioCls">Yes</span>
+                                        </label>
+                                    </span>
+                                    <span class="slds-radio">
+                                        <input type="radio" id="radio-44" value="radio-44" onclick="{!c.NoInput}" name="required" />
+                                        <label class="slds-radio__label" for="radio-44">
+                                            <span class="slds-radio_faux"></span>
+                                            <span class="slds-form-element__label,customRadioCls">No</span>
+                                        </label>
+                                    </span>
+                                </div>
+                            </fieldset>   
+                            <br></br>
+                            <!--   <aura:renderIf  isTrue="{!v.UserChoice2}"> -->
+                            <div aura:id="sec1" class="slds-hide"> 
+							    <div >Drawdown Amount </div>
+                                <lightning:layoutItem size="3">    <lightning:input type="number" name="DrawdownInput1" placeholder="Enter Amount"  value="{!v.PhasedOpts.Amount}" formatter="currency" step="0.01"/></lightning:layoutItem>
+                                
+                                 <br></br>
+                                    <div class="slds-grid slds-gutters">
+  <div class="slds-col">
+    <span>
+        <lightning:layoutItem size="5">   <lightning:input aura:id="input1" fieldName="Name" label="Percentage of tax free cash to be taken"  type="number"  placeholder="Enter tax exempted %" value ="{!v.PhasedOpts.Percent}" formatter="percent-fixed" step="1" /></lightning:layoutItem></span>
+  </div>
+  <div class="slds-col">
+    <span>
+        <lightning:layoutItem size="3"> <lightning:input name="input1" label="Tax free cash Amount" default="0" disabled="true" value="{!div(mult(v.num1,v.drawdownPercent),100)}" type="number" formatter="currency" ></lightning:input></lightning:layoutItem> </span>
+  </div> <br></br><br></br>																										   
+                                        								
+  
+</div><br></br>                                
+                                <!--<b>Enter Drawdown Amount</b> <lightning:layoutItem size="3"> -->
+                                
+                                <!-- <div class="slds-form-element__control">
+    <input type="text" id="form-element-01" placeholder="Amount in $" value="{!v.num1}" class="slds-input" />
+  </div> -->
+                            <!--    <lightning:layoutItem size="3"> <lightning:input name="input1" label="Enter Drawdown amount" value="{!v.num1}" onclick="{!c.TaxCalc}" /></lightning:layoutItem>
+                                
+                                
+                                
+                                <br></br>
+                                <b>Tax Free Rate - 25% </b>
+                                <br></br><br></br>
+                                Taxable Amount - {!sub(v.num1,(mult(v.num1,0.25)))} 
+                                <br></br><br></br>
+                                Non Taxable Amount - {!div(mult(v.num1,25),100)} 
+                                <br></br> -->
+                                
+                                <!--<div><b>Bank Account Details:</b></div> -->
+                            </div>
+                            <!--     <aura:set attribute="else"> 
+                                <div></div>
+                          </aura:set> 
+                       </aura:renderIf> 
+                       <aura:renderif isTrue="{!v.UserChoice}"> -->
+                            
+                            <div aura:id="sec2" class="slds-hide"> 
+                               <div >Drawdown Amount </div>
+                                <lightning:layoutItem size="3">    <lightning:input type="number" name="DrawdownInput1"  disabled="true" value="{!v.AmountBalance.Total_Amount__c}" formatter="currency" step="0.01"/></lightning:layoutItem>
+                                
+                                 <br></br>
+                                    <div class="slds-grid slds-gutters">
+  <div class="slds-col">
+    <span>
+        <lightning:layoutItem size="5">   <lightning:input fieldName="Name" label="Percentage of tax free cash to be taken"  type="number" placeholder="Enter tax exempted %" value ="{!v.drawdownPercent}" formatter="percent-fixed"  /></lightning:layoutItem></span>
+  </div>
+  <div class="slds-col">
+    <span>
+        <lightning:layoutItem size="3"> <lightning:input name="input1" label="Tax free cash Amount" default="0" disabled="true" value="{!div(mult(v.AmountBalance.Total_Amount__c,v.drawdownPercent),100)}" type="number" formatter="currency" ></lightning:input></lightning:layoutItem> </span>
+  </div> <br></br><br></br>
+  																													
+</div><br></br>
+                                <div>                      
+<lightning:radioGroup                         aura:id="drawdown2"
+                                              name="drawdown2"
+                                              label="Does the client wants to take income in addition to the tax free cash?"
+                                              options="{! v.PhasedOpts }"
+                                              value="{! v.drawdownval1 }"
+                  						      class="customRadioCls"
+                      						  onchange="{!c.Incomedrawdown}"
+                                              /> 
+                        </div>
+                                
+                                <div aura:id="incomeyes" class="slds-hide">Yes section</div>
+                                <div aura:id="incomeno" class="slds-hide">No Section</div>
+                                
+                                
+                                
+                                
+                                <!--<div><b>Bank Account Details:</b></div> -->
+                            </div>
+                            
+                            <!--    <aura:set attribute="else"> 
+                                <div></div>
+                           </aura:set> 
+                        </aura:renderif> -->
+                        </div>
+                    </div>	<hr></hr></div></div>
+            
+        </div>
+        <div class="slds-box">
+        <div class="slds-section slds-is-close" aura:id="MoneySection2">
+            <!--section header-->
+            <h3 class="slds-section__title">
+                <button aria-controls="MoneyOutOptions" class="slds-button slds-section__title-action">
+                    <span onclick="{!c.toggleSection}" data-auraId="MoneySection2">
+                        <lightning:icon iconName="utility:switch"
+                                        size="x-small"
+                                        class="slds-section__title-action-icon slds-button__icon_left"
+                                        alternativeText="button icon" 
+                                        />
+                    </span>
+                    <span class="slds-truncate" title="MoneyOption1">Phased Drawdown </span>
+                </button>
+            </h3>
+            <!--section body-->
+            <div class="slds-section__content" id="MoneyOutOptions">
+               <hr></hr>
+                <h3><b>Drawdown Details</b></h3>
+            <br></br>
+            <p>Phased drawdown frequency</p>
+            
+            <fieldset class="slds-form-element">
+                            <div class="slds-form-element__control,customRadioCls">
+                                <span class="slds-radio">
+                                    <input type="radio" id="radio-45" value="radio-45" name="required" checked="" />
+                                    <label class="slds-radio__label" for="radio-45">
+                                        <span class="slds-radio_faux"></span>
+                                        <span class="slds-form-element__label">Monthly</span>
+                                    </label>
+                                </span>
+                                <span class="slds-radio">
+                                    <input type="radio" id="radio-46" value="radio-46"  name="required" checked=""/>
+                                    <label class="slds-radio__label" for="radio-46">
+                                        <span class="slds-radio_faux"></span>
+                                        <span class="slds-form-element__label">Weekly</span>
+                                    </label>
+                                </span>
+                            </div>
+                        </fieldset> 
+            <br></br>
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <lightning:layoutItem size="3"> <lightning:input name="input1" 	label="Enter Drawdown Amount" value="{!v.phdraw}" onclick="{!c.TaxCalc}" /></lightning:layoutItem>
+                       <br></br>
+                         <div class="slds-grid slds-gutters">
+  <div class="slds-col">
+    <span>
+        <lightning:layoutItem size="5">   <lightning:input fieldName="Name" label="Percentage of tax free cash to be taken" type="string" value ="25%" formatter="percent" readonly="true" /></lightning:layoutItem></span>
+  </div>
+  <div class="slds-col">
+    <span>
+        <lightning:layoutItem size="3"> <lightning:input name="input1" label="Tax free cash Amount" default="0" disable="true" value="{!mult(v.phdraw,0.25)}" formatter="currency" step="0.01" type="number" >
+            </lightning:input>
+       </lightning:layoutItem> </span>
+  </div>
+  
+</div><br></br><br></br>
+                        <div>
+                        
+<lightning:radioGroup                         aura:id="phasedopts"
+                                              name="phasedropdowngrp"
+                                              label="Does the client wants to take income in addition to the tax free cash?"
+                                              options="{! v.PhasedOpts }"
+                                              value="{! v.phasedradioValue }"
+                                              /> 
+                        </div><br></br>
+                                 <aura:renderIf isTrue="{!v.phasedradioValue == 'yes'}">
+                        <div aura:id="phasedpayment1">
+                            <lightning:layoutItem size="3">   <lightning:input type="Number" fieldname="TacincAmt" label="Taxable income amount" /></lightning:layoutItem>
+                        <br></br>
+                            <lightning:layoutItem size="3"> 
+                     <lightning:select name="select1" label="How often does your client wants to receive their income" required="true">
+            <option value="">choose one...</option>
+            <option value="1">Monthly</option>
+            <option value="2">Quarterly</option>
+            <option value="3">Half Yearly</option>
+            <option value="4">Yearly</option>
+                         </lightning:select></lightning:layoutItem><br></br>
+                            <lightning:layoutItem size="3"> <lightning:input type="date" name="PhasedDate" label="First taxable income payment date" required="true" placeholder="Enter Date.."/></lightning:layoutItem>
+                            <hr></hr>
+                            <b><p>Payment Details</p></b>
+                            <br></br>
+                            <p>  Please Provide the bank details for where your client would like the payments made</p>
+                            <br></br>
+                           <lightning:radioGroup                         aura:id="phasedopts2"
+                                              name="phasedropdowngrp2"
+                                              label="Does the client want to use the same bank account to receive payments?"
+                                              options="{!v.PhasedOpts2 }"
+                                              value="{!v.phasedradioValue2 }"
+                                              /> 
+                            </div>
+                   <!--   <aura:renderIf isTrue="{!v.phasedradiovalue2=='yes'}">
+                      <div aura:id="phaseddrawdownbank"></div> 
+                                </aura:renderIf>
+                        <aura:renderIf isTrue="{!v.phasedradiovalue2=='no'}">
+                      <div aura:id="bankacc">
+                                    <br></br>
+                                    <p>Which bank account would you like to use?</p>
+                                    <br></br>      </div>
+                        </aura:renderIf>
+                                    <article class="slds-card">
+				<div class="slds-card__header slds-grid">
+				<header class="slds-media slds-media_center slds-has-flexi-truncate">
+				<div class="slds-media__figure">
+				<span class="slds-icon_container slds-icon-standard-account" title="account">
+                    <div aura:id="svg_content">
+                        <![CDATA[
+				<svg class="slds-icon slds-icon_small" aria-hidden="true">
+				<use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+  </svg> ]]> </div>
+				<span class="slds-assistive-text">account</span>
+		</span>
+		</div>
+<div class="slds-media__body">
+<h2 class="slds-card__header-title">
+<a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+<span>Accounts</span>
+</a>
+</h2>
+</div>
+<div class="slds-no-flex">
+<button class="slds-button slds-button_neutral">New</button>
+</div>
+</header>
+</div>
+<div class="slds-card__body slds-card__body_inner">Anything can go into the card body</div>
+<footer class="slds-card__footer">
+<a class="slds-card__footer-action" href="javascript:void(0);">View All
+<span class="slds-assistive-text">Accounts</span>
+</a>
+</footer>
+</article>
+                                    
+                         -->     
+                               
+                            
+                            
+                        
+                      <aura:set attribute="else"><div><br></br></div></aura:set></aura:renderIf>
+                           <aura:renderIf isTrue="{!v.phasedradioValue=='No'}">
+                                  <div> <h3>Drawdown payment details</h3><br></br>
+                            <p>Which bank account would you like to use?</p>
+                            
+                            </div></aura:renderIf>
+                                     <hr></hr>     
+                    </div></div></div></div>
+    </div>
+   
+        <div class="slds-box">
+            <div class="slds-section slds-is-close" aura:id="MoneySection3">
+                <!--section header-->
+                <h3 class="slds-section__title">
+                    <button aria-controls="MoneyOutOptions" class="slds-button slds-section__title-action">
+                        <span onclick="{!c.toggleSection}" data-auraId="MoneySection3">
+                            <lightning:icon iconName="utility:switch"
+                                            size="x-small"
+                                            class="slds-section__title-action-icon slds-button__icon_left"
+                                            alternativeText="button icon" 
+                                            />
+                        </span>
+                        <span class="slds-truncate" title="MoneyOption1">Single UFPLS</span>
+                    </button>
+                </h3>
+                <!--section body-->
+                <div class="slds-section__content" id="MoneyOutOptions">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <hr></hr>
+                            <p><b>Please note that 25% of the UFPLS withdrawal will usually be tax free, the rest of the UFPLS withdrawl will be taxed as pension income. Please do not key an UFPLS if your client does not have sufficient standard lifetime allowance to make the payment.</b></p><br></br>
+                            <lightning:layoutItem size="3">   <lightning:input name="input1" label="Single UFPLS Amount" value="{!v.singleufpls}" onclick="{!c.TaxCalc}" /></lightning:layoutItem>
+                            
+                        </div>
+                        <br></br>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col">
+                                <span><!--<b>Percentage of tax free cash to be taken</b> -->
+                                    <lightning:layoutItem size="5">   <lightning:input fieldName="Name" label="Percentage of tax free cash to be taken" type="string" value ="25%" formatter="percent" readonly="true" /></lightning:layoutItem></span>
+                            </div>
+                            <div class="slds-col">
+                                <span><!--<b>Tax free cash Amount</b> -->
+                                    <lightning:layoutItem size="3"> <lightning:input name="input1" label="Tax free cash Amount" readonly="true" default="0" value="{!mult(v.singleufpls,0.25)}" ></lightning:input></lightning:layoutItem> </span>
+                            </div><br></br>
+                            
+                        </div><br></br>
+                        
+                        <lightning:layoutItem size="3"> 
+                            <lightning:select name="select1" label="In what ratios does your client want to sell their asstets?" required="true">
+                                <option value="">choose one...</option>
+                                <option value="1" onclick="{!c.UFPLAssetSelection}">Propotionately</option>
+                                <option value="2">Dispropotionately</option>
+                                
+                            </lightning:select></lightning:layoutItem>
+                        
+                        <br></br>
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered,slds-hide" aura:id="UFPLStable">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Opportunity Name">Asset Name</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Account Name">Disinvestment Allocation</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        
+                        
+                        <!--  <p>Which Bank account would you like to use ?</p>
+                    <article class="slds-card">
+  <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+      <div class="slds-media__figure">
+        <span class="slds-icon_container slds-icon-standard-account" title="account">
+          <svg class="slds-icon slds-icon_small" aria-hidden="true">
+            <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+          </svg>
+          <span class="slds-assistive-text">account</span>
+        </span>
+      </div>
+      <div class="slds-media__body">
+        <h2 class="slds-card__header-title">
+          <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="BankAccount">
+            <span>Bank Account</span>
+          </a>
+        </h2>
+      </div>
+      <div class="slds-no-flex">
+        <button class="slds-button slds-button_neutral">New</button>
+      </div>
+    </header>
+  </div>
+  <div class="slds-card__body slds-card__body_inner">Anything can go into the card body</div>
+  <footer class="slds-card__footer">
+    <a class="slds-card__footer-action" href="javascript:void(0);">View All
+      <span class="slds-assistive-text">Accounts</span>
+    </a>
+  </footer>
+</article> -->
+                    </div></div></div></div>
+        <div class="slds-box">
+            <br></br>
+            <div class="slds-section slds-is-close" aura:id="MoneySection4">
+                <!--section header-->
+                <h3 class="slds-section__title">
+                    <button aria-controls="MoneyOutOptions" class="slds-button slds-section__title-action">
+                        <span onclick="{!c.toggleSection}" data-auraId="MoneySection4">
+                            <lightning:icon iconName="utility:switch"
+                                            size="x-small"
+                                            class="slds-section__title-action-icon slds-button__icon_left"
+                                            alternativeText="button icon" 
+                                            />
+                        </span>
+                        <span class="slds-truncate" title="MoneyOption1">Regular UFPLS</span>
+                    </button>
+                </h3>
+                <!--section body-->
+                <div class="slds-section__content" id="MoneyOutOptions">
+                    <hr></hr>
+                    <p><b>Please note that 25% of the UFPLS withdrawal will usually be tax free, the rest of the UFPLS withdrawl will be taxed as pension income. Please do not key an UFPLS if your client does not have sufficient standard lifetime allowance to make the payment.</b></p><br></br>
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning:layoutItem size="3"> 
+                                <lightning:select name="select1" label="Regular UFPLS frequency" required="true">
+                                    <option value="">choose one...</option>
+                                    <option value="1">Yearly</option>
+                                    <option value="2">Monthly</option>
+                                    <option value="3">Weekly</option>
+                                </lightning:select></lightning:layoutItem><br></br>
+                            <lightning:layoutItem size="3">     <lightning:input name="input1" label="Regular UFPLS Amount" value="{!v.regnum}" onclick="{!c.TaxCalc}" /></lightning:layoutItem>
+                            <br></br>
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col">
+                                    <span>
+                                        <lightning:layoutItem size="5">   <lightning:input fieldName="Name" label="Percentage of tax free cash to be taken" placeholder="Amount in $" type="string" value ="25%" formatter="percent" readonly="true" /></lightning:layoutItem></span>
+                                </div>
+                                <div class="slds-col">
+                                    <span>
+                                        <lightning:layoutItem size="3"> <lightning:input name="input1" label="Tax free cash Amount" default="0" value="{!mult(v.regnum,0.25)}" readonly="true"></lightning:input></lightning:layoutItem> </span>
+                                </div>
+                                
+                            </div>
+                        </div></div></div></div></div>
+        
+        <br></br><br></br>
+        <div class="slds-text-heading_large">Pension Income Account</div>
+        <br></br><br></br>
+        
+        <div class="slds-box"> 
+            <div class="slds-section slds-is-close" aura:id="TaxableIncomeRegularSection">
+                <!--section header-->
+                <h3 class="slds-section__title">
+                    <button aria-controls="TaxableIncomeRegularId" class="slds-button slds-section__title-action">
+                        <span onclick="{!c.toggleSection}" data-auraId="TaxableIncomeRegularSection">
+                            <lightning:icon iconName="utility:switch"
+                                            alternativeText="button icon"
+                                            size="x-small"
+                                            class="slds-section__title-action-icon slds-button__icon_left"/>
+                        </span>
+                        <span class="slds-truncate" title="TaxableIncomeRegular">Taxable Income-Regular</span>
+                    </button>
+                </h3>
+                <!--section body-->
+                
+                <div class="slds-section__content" id="TaxableIncomeRegularId">
+                    <div class="slds-form-element">
+                        <div class="slds-size--2-of-4 slds-p-around--large">
+                            <label class="slds-form-element__label" for="form-element-01" align='right'><b>How often does your client want to receive their income?</b></label>
+                            
+                            <!-- <aura:attribute name="options" type="List" default="[
+         {'label': 'Monthly', 'value': 'monthly'},
+         {'label': 'Yearly', 'value': 'yearly'},
+                     {'label': 'Quaterly', 'value': 'quaterly'},
+                                                                ]"/> -->
+                            
+                            
+                            
+                            <!-- <lightning:combobox  name=" " label=" " value="monthly" placeholder="Select an option" options="{! v.options }" onchange="{! c.handleChange }"/> -->
+                            
+                            
+                            <lightning:combobox aura:id="selectItem" name="status" label=""
+                                                placeholder="Choose Status"
+                                                value="new"
+                                                onchange="{!c.handleOptionSelected}"
+                                                options="{!v.statusOptions}"/>
+                            
+                        </div>
+                        
+                        
+                        <div class="slds-size--2-of-4 slds-p-around--large">
+                            <label class="slds-form-element__label" for="form-element-01" align='right'><b>Taxable income amount </b></label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="form-element-01" placeholder="Amount in $" class="slds-input" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-size--2-of-4 slds-p-around--large">
+                            <label class="slds-form-element__label" for="form-element-01" align='right'><b>First taxable income payment date </b></label>
+                            <lightning:input aura:id="field"
+                                             type="date" 
+                                             name="MyDatefield" 
+                                             label="" 
+                                             value="" 
+                                             min="" 
+                                             max="" 
+                                             onblur ="{!c.checkValidity }"
+                                             />
+                        </div>
+                        <div class="slds-size--2-of-4 slds-p-around--large">
+                            <lightning:radioGroup
+                                                  aura:id="mygroup"
+                                                  name="radioButtonGroup"
+                                                  label="In what ratios does your client want to sell their asstets?"
+                                                  options="{! v.options }"
+                                                  value="{! v.radioValue }"
+                                                  class="customRadioCls"
+                                                  />
+                            <aura:if isTrue="{!v.radioValue == 'yes'}">
+                                
+                                <aura:set attribute="else">
+                                    <div style="height: 300px">
+                                        <lightning:datatable aura:id="dtTable"
+                                                             columns="{! v.columns }"
+                                                             data="{! v.data }"
+                                                             keyField="Id"
+                                                             errors="{! v.errors }"
+                                                             draftValues="{! v.draftValues }"
+                                                             onsave="{! c.handleSaveEdition }"
+                                                             />
+                                    </div>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-box"> 
+            <div class="slds-section slds-is-close" aura:id="TaxableIncomeSingleSection">
+                <!--section header-->
+                <h3 class="slds-section__title">
+                    <button aria-controls="TaxableIncomeSingleOptions" class="slds-button slds-section__title-action">
+                        <span onclick="{!c.toggleSection}" data-auraId="TaxableIncomeSingleSection">
+                            <lightning:icon iconName="utility:switch"
+                                            size="x-small"
+                                            class="slds-section__title-action-icon slds-button__icon_left"
+                                            alternativeText="button icon" 
+                                            />
+                        </span>
+                        <span class="slds-truncate" title="TaxableIncomeSingle">Taxable Income-Single</span>
+                    </button>
+                </h3>
+                <!--section body-->
+                <div class="slds-section__content" id="TaxableIncomeSingleOptions">
+                    <div class="slds-form-element">
+                        <div class="slds-size--2-of-4 slds-p-around--large">
+                            <label class="slds-form-element__label" for="form-element-01" align='right'><b>Enter amount </b></label>
+                            <div class="slds-form-element__control">
+                                <input type="text" id="form-element-01" placeholder="Amount in $" class="slds-input" />
+                            </div>
+                        </div>
+                        
+                        <div class="slds-size--2-of-4 slds-p-around--large">
+                            <lightning:radioGroup
+                                                  aura:id="mygroup"
+                                                  name="radioButtonGroup"
+                                                  label="In what ratios does your client want to sell their asstets?"
+                                                  options="{! v.options }"
+                                                  value="{! v.radioValue }"
+                                                  class="customRadioCls"
+                                                  />
+                            <aura:if isTrue="{!v.radioValue == 'yes'}">
+                                
+                                <aura:set attribute="else">
+                                    <div style="height: 300px">
+                                        <lightning:datatable aura:id="dtTable"
+                                                             columns="{! v.columns }"
+                                                             data="{! v.data }"
+                                                             keyField="Id"
+                                                             errors="{! v.errors }"
+                                                             draftValues="{! v.draftValues }"
+                                                             onsave="{! c.handleSaveEdition }"
+                                                             />
+                                    </div>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+    </div>
+    
+    <div class="slds-docked-form-footer">
+  <button type="button" class="slds-button slds-button_neutral">Cancel</button>
+  <button type="button" class="slds-button slds-button_brand" onclick="{!c.AdvisorChargePage}">Next</button>
+</div>
+    <!--  <button class="slds-button slds-button_success">Save</button>
+    <ui:button label="Save Button" /> -->
+</aura:component>

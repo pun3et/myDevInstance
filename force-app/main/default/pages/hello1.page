@@ -1,0 +1,15 @@
+<apex:page >
+
+    
+    
+{! $User.FirstName & ' ' &  $User.LastName } 
+<p>Today's date is {!Today()}</p>
+<p>The Maximum number is {!MAX(1,2,3,4,5,6)}</p>
+<p>{! IF (Day(Today()) > 14,'The date is after 14','The date is 14 or before 14')}</p>
+
+
+
+
+
+
+</apex:page>

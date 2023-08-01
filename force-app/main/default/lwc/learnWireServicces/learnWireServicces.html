@@ -1,0 +1,9 @@
+<template>
+    <lightning-card>
+        {userId}
+        <template if:true={userFields}>
+            UserName-userFields.Name.value
+            Email=userFields.Email.value
+        </template>
+    </lightning-card>
+</template>

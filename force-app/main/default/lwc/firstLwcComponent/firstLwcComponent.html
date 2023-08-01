@@ -1,0 +1,20 @@
+<template>
+    
+    <lightning-card>
+    <div class="slds-p-horizontal_small"> I don't need HTML tags ....The LWC UI has it's own structure Or template </div>
+    <div class="slds-p-horizontal_small"> I am referring a property/Variable - : {lwcSfProp}</div>
+    <div class="slds-p-horizontal_small">I want to check if the property can be referred in normal JS as well</div>
+</lightning-card>
+    <lightning-input type="text" label="Username is" onkeyup={handleUserName}></lightning-input>
+
+    <lightning-input type="number" onkeyup={handleAge}>Please enter age</lightning-input>
+<div class="slds-p-horizontal_small">
+    Hello, {updatedUserName}, your age is {obj.age}, you will become a billionaire at {billionAge}
+</div>
+    <lightning-input id="passwordInput" data-id="passwordInput" type="text" value={passInput} label="Type Password">   </lightning-input>
+    <lightning-button onclick={handlePassword} label="Submit">  </lightning-button>
+    <template if:true={stringCorrect}>
+            Correct Password
+    </template>
+
+</template>

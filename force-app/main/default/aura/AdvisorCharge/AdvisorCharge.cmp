@@ -1,0 +1,79 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	 <aura:attribute name="Unitoptions" type="List" default="[
+    {'label': '%', 'value': 'Percent'},
+    {'label': '£', 'value': 'Pound'}
+    ]"/>
+    
+    <aura:attribute name="Unitval" type="String" />
+    <div class="slds-text-heading_large">Adviser Charges</div>
+    <br></br>
+    <p>Please enter the details of any initial and ongoing adviser charges for this transaction</p>
+    <br></br><br></br>
+     <div class="slds-box">
+   		<p><b>Initial advisor charges</b></p>
+         <hr></hr>
+         
+              <div class="slds-grid slds-gutters">
+                  <div class="slds-col slds-size_1-of-4">
+                   <!--   <span >Drawdown <br></br></span> -->
+                      <lightning:layoutItem size="5">   <lightning:input type="number" label="Drawdown" step="0.01" value="" disabled="true" formatter="currency"></lightning:input></lightning:layoutItem>
+                  </div>
+                  <div class="slds-col slds-size_2-of-4">
+                      
+                 <!-- <lightning:radioGroup
+       				 aura:id="DenominationSelect"
+       				 name="UnitSelect"
+       				 label="Unit"
+       				 options="{!v.Unitoptions}"
+       				 value="{!v.unitvalue }"
+       				 onchange="{!c.handleChange }"
+       				 required="true" 
+					 class="customRadioCls" /> -->
+                     
+                      <lightning:layoutItem size="1"> 
+    
+   						                   
+                  <div class="slds-form-element">
+  					   <label class="slds-form-element__label" for="select-01">
+                       <abbr class="slds-required slds-size_1-of-2" title="required">* </abbr>Unit</label>
+                  <div class="slds-form-element__control">
+                       <div class="slds-select_container">
+                       <select class="slds-select" id="select-01" required="">
+                       <option value=""></option>
+                       <option value="{!v.Unitval}">per</option>
+                       <option value="{!v.Unitval}">£</option>
+                      
+                      </select>
+                    </div>
+  					</div>
+					</div>
+             </lightning:layoutItem>
+                  </div>
+                  <aura:renderIf isTrue ="{!v.Unitval=='per'}">
+                      <lightning:layoutItem size="3"> <lightning:input type="number" formatter="percent-fixed" value="{!v.unitval}" aura:id="unitInput" label="Charge"></lightning:input></lightning:layoutItem>
+                 $nbsp;$nbsp;$nbsp;$nbsp;$nbsp; 
+                      <lightning:layoutItem size="2"> <lightning:input type="number" formatter="currency" value="{!v.inputamount}" aura:id="InputInPercent" label="Allocating" disabled="true"></lightning:input></lightning:layoutItem>
+                  </aura:renderIf>
+                  
+                  <aura:renderif isTrue="{v.Unitval=='£'}">
+                      <lightning:layoutItem size="3">  <lightning:input type="number" formatter="percent-fixed" value="{!v.unitval}" aura:id="unitInput" label="Charge"></lightning:input></lightning:layoutItem>
+                      <lightning:layoutItem size="2"> <lightning:input type="number" formatter="currency" value="{!v.inputamount}" aura:id="InputInPercent" label="Allocating" disabled="true"></lightning:input></lightning:layoutItem>
+                  </aura:renderif></div>
+         <hr></hr>
+         
+              <div class="slds-grid slds-gutters slds-p-top_xxx-small">
+                  <div class="slds-col slds-size_1-of-4">
+                   <!--   <p>Total initial charge</p><br></br> -->
+                      <lightning:input type="number" disabled="true" formatter="currency" label="Total initial charge" value="0"></lightning:input>
+                  </div>
+                  <div class="slds-col slds-size_1-of-4">
+                    <!-- <p>Recurring initial charge</p><br></br> -->
+                          <lightning:input type="number" disabled="true" label="Recurring initial charge" formatter="currency" value="0"></lightning:input>
+                  </div>
+    
+         </div></div>
+    <div class="slds-docked-form-footer">
+  <button type="button" class="slds-button slds-button_neutral">Cancel</button>
+  <button type="button" class="slds-button slds-button_brand" onclick="{!c.AdvisorChargePage}">Next</button>
+</div>
+</aura:component>

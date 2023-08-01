@@ -1,0 +1,61 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"  access="global" controller="Moneyoutclass" >
+ <aura:attribute name="per1" type="integer" />
+    <aura:handler event="c:NavEvent" action="{!c.getValueFromApplicationEvent}"/>
+        <aura:attribute name="Get_Result" type="Integer" />
+    <aura:attribute name="radioValue" type="string" access="public" />
+     <aura:attribute name="radioValue1" type="string" />
+     <aura:attribute name="radioValueFromController" type="map" />
+    
+    
+ <aura:attribute name="PhasedOpts" type="List" default="[
+                                                        {'label': 'yes', 'value': 'yes'},
+                                                        {'label': 'no', 'value': 'no'}
+                                                        ]"/>
+  
+    
+    <lightning:radioGroup    aura:id="phasedopts1"
+                             name="phasedropdowngrp"
+                             label="Does the client wants to take income in addition to the tax free cash?"
+                             options="{!v.PhasedOpts}"
+                             value="{!v.radioValue}"
+                          	 onclick="{!c.ClickRadio}"
+                                              />
+    {!v.radioValueFromController}
+     <aura:renderIf isTrue="{!v.radioValueFromController.key1=='yes'}">
+   <div aura:id="sec1">
+    The data in initial section of 1st sec div i.e when yes is selected
+       <lightning:radioGroup    aura:id="phasedopts"
+                             name="phasedropdowngrp"
+                             label="Does the client wants to take income in addition to the tax free cash?"
+                             options="{! v.PhasedOpts }"
+                             value="{! v.radioValue1 }"
+                             onclick="{!c.ClickRadio}"
+                                              />
+       <aura:renderIf isTrue="{!v.radioValue1=='yes'}">
+       <div aura:id="incomeyes">
+       Data in first section if the income is selected as yes
+           </div></aura:renderIf>
+       <aura:renderIf isTrue="{!v.radioValue1=='no'}">
+       <div aura:id="incomeno">
+       Data in first section if the income is selected as no
+           </div></aura:renderIf>
+         </div></aura:renderIf>
+    <aura:renderIf isTrue="{!v.radioValueFromController.key1=='no'}">
+     <div aura:id="sec2">
+    The data in initial section of 1st sec div i.e when yes is selected
+       <lightning:radioGroup    aura:id="phasedopts"
+                             name="phasedropdowngrp"
+                             label="Does the client wants to take income in addition to the tax free cash?"
+                             options="{! v.PhasedOpts }"
+                             value="{v.radioValue3 }"
+                                              />
+       
+       <div aura:id="incomeyes1">
+       Data in second section if the income is selected as yes
+       </div>
+       <div aura:id="incomeno1">
+       Data in second section if the income is selected as no
+       </div>
+        </div></aura:renderIf>
+   
+</aura:component>

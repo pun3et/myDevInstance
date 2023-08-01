@@ -1,0 +1,5 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	
+    
+     <lightning:layoutItem size="5">   <lightning:input aura:id="input1" fieldName="Name" label="Percentage of tax free cash to be taken"  type="number"  placeholder="Enter tax exempted %" value ="{!v.drawdownPercent}" formatter="percent-fixed" step="1" /></lightning:layoutItem>
+</aura:component>

@@ -1,0 +1,109 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" controller="RegularUFPLShandler" access="global" >
+    <aura:attribute name ="Service" type="Service_Illustration__c"></aura:attribute>
+    <aura:attribute name ="activeSections" type="String"></aura:attribute>
+    <aura:attribute name="FruitInfo" type="Object"></aura:attribute>
+    
+    
+    <lightning:layoutitem size='12' padding="around-small" >
+        <lightning:accordion allowMultipleSectionsOpen="true" activeSectionName="{! v.activeSections }">
+            <lightning:accordionsection name="A" label="Accordion Title A">SEC 1
+                <lightning:button name="SECA" label="confirm" variant="Brand" onclick="{!c.confirm}"></lightning:button>
+            </lightning:accordionsection>
+            <lightning:accordionsection name="B" label="Accordion Title B">SEC 2</lightning:accordionsection>
+        </lightning:accordion>
+        <p>
+            <b>Please note that 25% of the UFPLS withdrawal will usually be tax free, 
+                the rest of the UFPLS withdrawl will be taxed as pension income. 
+                Please do not key an UFPLS if your client does not have sufficient standard lifetime allowance 
+                to make the payment.</b>        
+        </p>
+        
+    </lightning:layoutitem>
+    
+    <lightning:layoutItem size="12" padding="around-small"> 
+        <lightning:select name="RegUFPLSFreq" label="Regular UFPLS frequency" required="true">
+            <option value="">choose one...</option>
+            <option value="1">One off</option>
+            <option value="2">Monthly</option>
+            <option value="3">Quarterly</option>
+            <option value="4">Yearly</option>
+        </lightning:select>
+    </lightning:layoutItem>
+    
+    <lightning:layoutItem size="6" padding="around-small">    
+        <lightning:input name="RegUFPLSInput" label="Regular UFPLS Amount"
+                         type="number" formatter="currency" value="25" min="0"
+                         aura:id="Amountval"
+                         max="100" messageWhenRangeOverflow="Percent cannot exceed 100"
+                         
+                         />
+    </lightning:layoutItem>
+    <lightning:layoutItem size="6" padding="around-small"></lightning:layoutItem>
+    
+    <lightning:layoutItem size="6" padding="around-small"> 
+        <lightning:input fieldName="RegUFPLSPercent" label="Percentage of tax free cash to be taken"
+                         placeholder="" disabled=""  type="number" formatter="percent-fixed"
+                         value ="{!v.Service.RegUFPLSPercent__c}" />
+    </lightning:layoutItem>
+    
+    <lightning:layoutItem size="6" padding="around-small"> 
+        <lightning:input fieldName="RegUFPLSTaxFree" label="Tax free cash Amount"
+                         placeholder="" disabled=""  type="number" formatter="currency"
+                         value ="{!v.Service.RegUFPLSTax}" />
+    </lightning:layoutItem>
+    
+    <lightning:layoutItem size="6" padding="around-small">
+        <lightning:input name="RegUFPLSDate" label="First regular UFPLS payment date" 
+                         type="date" placeholder="Enter Date">
+            <lightning:icon iconName="utility:warning" alternativeText="Warning!" title="Warning" /> 
+            Income can only be paid a minimum of 14 days after today's date and no later than 13 months in the 
+            future.Income payments can only be made when sufficient funds are available 
+        </lightning:input>
+        
+        
+    </lightning:layoutItem>
+    
+    <lightning:input name="BankNumber" label="Bank Number" type="string" value="{!v.FruitInfo.Name}"></lightning:input>
+    <lightning:input name="Scode" label="Sort Code" type="string" value="{!v.FruitInfo.Sort_code__c}"></lightning:input>
+    
+    <lightning:layoutItem size="6" padding="around-small"> 
+        <lightning:input fieldName="Name" label="Name"
+                         placeholder="Enter Name" required="true" aura:id="Amountval" type="text" 
+                         value ="" />
+    </lightning:layoutItem>
+    <lightning:layoutItem size="6" padding="around-small"> 
+        <lightning:button type="Brand" label="Save" onclick="{!c.Validate}"></lightning:button>
+    </lightning:layoutItem>
+    
+    <!-- This is new Modal section -->
+    
+    <lightning:button name="AddBank"  iconName="add" label="Add Bank account" onclick="{!c.showModal}"></lightning:button>
+    
+    
+    <div aura:id="modalDiv" class="HideModal">
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+<div class="slds-modal__container">
+<header class="slds-modal__header">
+<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+
+<span class="slds-assistive-text">Close</span>
+</button>
+<h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Add Bank Account</h2>
+</header>
+<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+  <!--  <lightning:input name="BankNumber" label="Bank Number" type="string" value="{!v.FruitInfo.Name}"></lightning:input>
+    <lightning:input name="Scode" label="Sort Code" type="string" value="{!v.FruitInfo.Sort_code__c}"></lightning:input> -->
+    
+    
+    </div>
+<footer class="slds-modal__footer">
+<lightning:button class="slds-button slds-button_neutral" onclick="{!c.HideModal}">Cancel</lightning:button>
+<lightning:button variant="Brand" label="Validate" onclick="{!c.Validate}" ></lightning:button>
+    <lightning:button class="slds-button slds-button_brand">Save</lightning:button>
+ 
+</footer>
+</div>
+</section>
+<div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</aura:component>

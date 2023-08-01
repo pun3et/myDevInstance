@@ -1,0 +1,46 @@
+<template>
+    <lightning-card class='slds-p-around_medium' title="getNavItems from uiAppsApi adapter">
+
+        The Nav Items data will appear here:
+<template if:true={navItemsData}>
+    <template for:each={navItemsData} for:item="navItem">
+        <ol key={navItem.objectApiName}>
+            <li>{navItem.objectApiName}</li>
+            <li>{navItem.label}</li>
+        </ol>
+    </template>
+
+</template >
+    </lightning-card>
+    <lightning-card class='slds-p-around_medium'>
+        <div class='slds-p-around_medium'>
+            <form class="createForm">
+                <lightning-input class='slds-m-around_small' label="FirstName" name="FirstName" onchange={changeHandler}></lightning-input>
+                <lightning-input class='slds-m-around_small' label="LastName" name="LastName" onchange={changeHandler}></lightning-input>
+                <lightning-input class='slds-m-around_small' label="Email" name="Email" onchange={changeHandler}></lightning-input>
+                <lightning-input class='slds-m-around_small' label="Account" name="AccountId" onchange={changeHandler}></lightning-input>
+                <lightning-button class='slds-m-around_small' name="Save Button" label="Submit" onclick={saveForm}></lightning-button>
+        </form>
+    </div>
+    </lightning-card>
+<lightning-card class='slds-p-around_medium' title="Using the listUi method to fetch records">
+    <div style="height: 300px;">
+        <lightning-datatable
+                key-field="Id"
+                data={contacts}
+                columns={columns}
+                draft-values={draftValues}
+                onsave={handleSave}
+                hide-checkbox-column>
+        </lightning-datatable>
+    </div>
+
+</lightning-card>
+<lightning-card title="Deleting records via recordAPI">
+
+    <form>
+        <lightning-input name="recordId" label="enter record Id" onchange={delHandler} class="slds-m-bottom_small"></lightning-input>
+        <lightning-button label="delete" variant="neutral" onclick={deleteRec}></lightning-button>
+    </form>
+</lightning-card>
+</template>

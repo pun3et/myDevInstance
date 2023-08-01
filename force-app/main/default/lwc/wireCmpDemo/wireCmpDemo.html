@@ -1,0 +1,17 @@
+<template>
+    <lightning-card class='slds-p-around_large' title="Now we're learning Wire service!">
+       <template if:true={wireResponse}>
+        <div class='slds-p-around_large'>UserName of logged in User- {wireResponse.Username.value}</div>
+        <div class='slds-p-around_large'>Name of logged in User- {wireResponse.Name.value}</div>
+    </template> 
+    </lightning-card>
+    <lightning-card title="Display the ACcount object info">
+        <div class="slds-p-around_medium">
+            <template if:true={defaultRecTypeId}>
+                The default record type ID is : {defaultRecTypeId}
+            </template>
+            
+        </div>
+    </lightning-card>
+
+</template>

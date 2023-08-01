@@ -1,0 +1,11 @@
+<apex:page >
+  <!-- Begin  Content  -->
+  <h1>Welcome to Campsite help</h1><br></br><br></br>
+  <h3>How may we help you?</h3>
+  
+  <ul type='disc'>
+  <li> <a href= 'https://www.google.com' > Web Support</a></li> 
+  </ul>
+  
+  <!-- End  Content  -->
+</apex:page>

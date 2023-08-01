@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="The message would appear here" class="slds-p-around_medium">
+        <div class="slds-p-around_medium">
+            <strong>{subsMessageVal}</strong>
+        </div>
+        <div class="slds-p-around_medium">
+            <template lwc:if={subscription}>
+            <lightning-button variant="neutral" label="Unsubscribe LMS" onclick={handleSub}></lightning-button>
+        </template>
+        <template lwc:else>
+            <lightning-button variant="brand" label="Subscribe LMS" onclick={handleSub}></lightning-button>
+        </template>
+        </div>
+    </lightning-card>
+</template>

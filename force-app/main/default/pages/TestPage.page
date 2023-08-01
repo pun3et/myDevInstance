@@ -1,0 +1,5 @@
+<apex:page showHeader="false" sidebar="true">
+    <h1>
+        Hello
+    </h1>
+</apex:page>

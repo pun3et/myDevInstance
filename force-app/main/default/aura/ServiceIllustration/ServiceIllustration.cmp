@@ -1,0 +1,10 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:actionOverride" controller="ServIllustrationController" access="global" >
+  <ltng:require styles="/resource/SLDS232/SLDS232/assets/styles/salesforce-lightning-design-system.min.css" /> 
+    <aura:attribute name="NewServ" type="Service_Illustration__c"/>
+    
+
+    
+    <lightning:input name="ServIllustrationName" label="Enter the name of service illustration" value="{!v.NewServ.Name}"></lightning:input>
+    
+    <button class="slds-button slds-button_success" onclick="{!c.SaveAction}">Success Button</button>
+</aura:component>

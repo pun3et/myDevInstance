@@ -1,0 +1,67 @@
+<template>
+    <lightning-card title="Starting off with the record forms" class="slds-p-around_medium">
+        <div>
+            <lightning-record-form
+            object-api-name={Account}
+            fields={fields}
+            record-id="0012800000ltYdsAAE"
+            oncancel ={handleCancel}
+            >
+            </lightning-record-form>
+        </div>
+    </lightning-card>
+
+    <lightning-card title="Creation Mode" class="slds-p-around_medium">
+        <div>
+            <lightning-record-form
+            object-api-name={Account}
+            fields={fields}
+            >
+            </lightning-record-form>
+        </div>
+    </lightning-card>
+
+    <lightning-card title="Edit Mode" class="slds-p-around_medium">
+        <div>
+            <lightning-record-form
+            object-api-name={Account}
+            fields={fields}
+            record-id="0012800000ltYdsAAE"
+            mode="edit"
+            >
+            </lightning-record-form>
+        </div>
+    </lightning-card>
+
+    <lightning-card title="Read Only Mode" class="slds-p-around_medium">
+        <div>
+            <lightning-record-form
+            object-api-name={Account}
+            fields={fields}
+            record-id="0012800000ltYdsAAE"
+            mode="readOnly"
+            >
+            </lightning-record-form>
+        </div>
+    </lightning-card>
+    <lightning-card title="Read Only Mode" class="slds-p-around_medium">
+        <div>
+            <lightning-record-view-form
+            object-api-name={userObj}
+            record-id={userId}
+            >
+            <lightning-output-field field-name="Username" label="Tumhra UserName"></lightning-output-field>
+            </lightning-record-view-form>
+        </div>
+    </lightning-card>
+    <lightning-card title="Read Only Mode" class="slds-p-around_medium">
+        <div>
+            <lightning-record-edit-form
+            object-api-name={userObj}
+            record-id={userId}
+            >
+            <lightning-input-field field-name="Username" label="Tumhra UserName"></lightning-input-field>
+            </lightning-record-edit-form>
+        </div>
+    </lightning-card>
+</template>

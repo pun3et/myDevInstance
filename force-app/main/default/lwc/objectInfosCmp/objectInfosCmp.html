@@ -1,0 +1,48 @@
+<template>
+    <lightning-card  class='slds-m-around_medium' title=" Get Object Infos Adatper ">
+        <template if:true={resJsonArr}>
+<template for:each={resJsonArr} for:item="objDataResult">
+  <div key={objDataResult.apiName}> 
+    defaultRecordTypeId is - {objDataResult.result.defaultRecordTypeId}
+</div> 
+</template>
+</template>
+    </lightning-card>
+    <lightning-card class='slds-m-around_medium' title="get Picklist values of Account's Industry field">
+
+        <lightning-combobox
+        name="Industry"
+        label="Industry Picklist Values"
+        value={selectedIndustry}
+        placeholder="Select a industry"
+        options={industryOptions}
+        onchange={handleChange} ></lightning-combobox>
+
+    </lightning-card>
+    Selected Industry :{selectedIndustry}
+
+    <lightning-card class='slds-m-around_medium' title="get Picklist values of Account's Industry field">
+
+        <lightning-combobox
+        name="Source"
+        label="Source"
+        value={selectedSource}
+        placeholder="Select a Source"
+        options={accSource}
+        onchange={handleChange} ></lightning-combobox>
+
+    </lightning-card>
+    Selected Source :{selectedSource}
+    <lightning-card class='slds-m-around_medium' title="get Picklist values of Account's Industry field">
+
+        <lightning-combobox
+        name="Rating"
+        label="Rating"
+        value={selectedRating}
+        placeholder="Select a Rating"
+        options={accRating}
+        onchange={handleChange} ></lightning-combobox>
+
+    </lightning-card>
+    The Rating that you selected is :{selectedRating}
+</template>

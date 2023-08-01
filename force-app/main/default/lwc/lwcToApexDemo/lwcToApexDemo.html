@@ -1,0 +1,75 @@
+<template>
+    <lightning-card title="Get Accounts from apex Class">
+        <template if:true={listAccs.data}>
+            <template for:each={listAccs.data} for:item="accRec">
+                <div key={accRec.Id} class="slds-box">
+                Account Name : {accRec.Name}
+                Account Id : {accRec.Id}
+                Account Type : {accRec.Type}
+            </div>
+            </template>
+        </template>
+    </lightning-card>
+
+    <lightning-card title="Get Accounts with transformed type from apex Class">
+        <template if:true={listAccsViaFn}>
+            <template for:each={listAccsViaFn} for:item="accRec">
+                <div key={accRec.Id} class="slds-box">
+                Account Name : {accRec.Name}
+                Account Id : {accRec.Id}
+                Account Type : {accRec.newType}
+            </div>
+            </template>
+        </template>
+    </lightning-card>
+
+
+    <lightning-card title="High Revenue Accounts">
+        <lightning-combobox
+        name="Account Revenue"
+        label="Accounts higher than"
+        options={revenueOptions}
+        value={annRev}
+        onchange={selectedRevenue}></lightning-combobox>
+        <template if:true={bigRevAccs.data}>
+            <template for:each={bigRevAccs.data} for:item="accRec">
+                <div key={accRec.Id} class="slds-box">
+                Account Name : {accRec.Name}
+                Account Id : {accRec.Id}
+                Account Type : {accRec.newType}
+                Annual Revenue : {accRec.AnnualRevenue}
+            </div>
+            </template>
+        </template>
+    </lightning-card>
+    <lightning-card title="Calling Apec class imperatively">
+        <div>
+            <p class="slds-p-around_medium"><lightning-button name="show Accounts" label="ShowAccs" variant="brand" onclick={handleClick}></lightning-button></p>
+        </div>
+        <div>
+        <template if:true={imperativeAccountList}>
+            <template for:each={imperativeAccountList} for:item="accRec">
+                <div key={accRec.Id} class="slds-box">
+                Account Name : {accRec.Name}
+                Account Id : {accRec.Id}
+                Account Type : {accRec.newType}
+            </div>
+            </template>
+        </template> 
+    </div>
+    </lightning-card>
+
+    <lightning-card title="Get Accounts conatining the entered name">
+        <lightning-input class="slds-p-around_medium" label="Enter the Name" name="SearchAcc" onchange={searchAccs}></lightning-input>
+        <template if:true={searchedAccounts}>
+            <template for:each={searchedAccounts} for:item="accSearched">
+        <div key ={accSearched.Id} class="slds-p-around_medium">
+           
+            <p>
+                Name: {accSearched.Name}
+            </p>
+        </div>
+    </template>
+        </template>
+    </lightning-card>
+</template>

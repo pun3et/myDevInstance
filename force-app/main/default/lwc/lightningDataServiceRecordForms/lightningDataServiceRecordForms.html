@@ -1,0 +1,48 @@
+<template>
+    <h1>All the lightning-record-form Varieties appear here</h1>
+    <div class="slds-p-around_small">
+    <lightning-card title="Lightning Record Form, Creation Mode" class="slds-p-around_small">
+        <lightning-record-form 
+        object-api-name={objName}
+        fields={fields}
+        onsuccess={handleSuccess}>
+        onreset={handleCancel}
+    </lightning-record-form>
+    </lightning-card>
+
+    <lightning-card title="Inline Edit and View Mode" class="slds-p-around_small">
+        <lightning-record-form 
+        object-api-name={objName}
+        fields={fields}
+        record-id="001N000002BE0ZpIAL">
+    </lightning-record-form>
+    </lightning-card>
+    <lightning-card title="ReadOnly Mode" class="slds-p-around_small">
+        <lightning-record-form 
+        object-api-name={objName}
+        fields={fields}
+        record-id="001N000002BE0ZpIAL"
+        mode="readonly"
+        column="2">
+    </lightning-record-form>
+    </lightning-card>
+    <lightning-card title="Edit Mode" class="slds-p-around_small">
+        <lightning-record-form 
+        object-api-name={objName}
+        fields={fields}
+        record-id="001N000002BE0ZpIAL"
+        mode="edit">
+    </lightning-record-form>
+    </lightning-card>
+
+    <lightning-card title="Using Layouts in Record Forms" class="slds-p-around_small">
+        <lightning-record-form
+        object-api-name={objectApiName}
+        record-id={recordId}
+        layout-type="Compact"
+        mode="edit"
+        >
+    </lightning-record-form>
+    </lightning-card>
+</div>
+</template>

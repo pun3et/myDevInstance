@@ -1,0 +1,53 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:isUrlAddressable" access="global" >
+	<aura:attribute name="num1" type="integer" ></aura:attribute>
+    <lightning:navigation aura:id="navigate" />
+    <fieldset class="slds-form-element">
+                            <legend class="slds-form-element__legend slds-form-element__label">
+                                <abbr class="slds-required" title="required">*</abbr> Does your client want to take an income in addition to tax free cash?</legend>
+                            <div class="slds-form-element__control">
+                                <span class="slds-radio">
+                                    <input type="radio" id="radio-43" value="radio-43" onclick="" name="required" checked="" />
+                                    <label class="slds-radio__label" for="radio-43">
+                                        <span class="slds-radio_faux"></span>
+                                        <span class="slds-form-element__label">Yes</span>
+                                    </label>
+                                </span>
+                                <span class="slds-radio">
+                                    <input type="radio" id="radio-44" value="radio-44" onclick="{}" name="required" />
+                                    <label class="slds-radio__label" for="radio-44">
+                                        <span class="slds-radio_faux"></span>
+                                        <span class="slds-form-element__label">No</span>
+                                    </label>
+                                </span>
+                            </div>
+                        </fieldset>
+    <br></br>
+    
+    
+    <fieldset class="slds-form-element">
+                            <legend class="slds-form-element__legend slds-form-element__label">
+                                <abbr class="slds-required" title="required">*</abbr> Does your client want to take an income in addition to tax free cash?</legend>
+                            <div class="slds-form-element__control">
+                                <span class="slds-radio">
+                                    <input type="radio" id="radio-45" value="radio-45" onclick="" name="required" checked="" />
+                                    <label class="slds-radio__label" for="radio-45">
+                                        <span class="slds-radio_faux"></span>
+                                        <span class="slds-form-element__label">Yes</span>
+                                    </label>
+                                </span>
+                                <span class="slds-radio">
+                                    <input type="radio" id="radio-46" value="radio-46" onclick="" name="required" />
+                                    <label class="slds-radio__label" for="radio-46">
+                                        <span class="slds-radio_faux"></span>
+                                        <span class="slds-form-element__label">No</span>
+                                    </label>
+                                </span>
+                            </div>
+                        </fieldset>
+    
+<br></br>    
+    
+    <lightning:input type="number" aura:id="numberfield" field="Total_Amount__c" label="Entetr amount" value="{!v.num1}"></lightning:input>
+    <lightning:button variant="brand" label="Next" title="Primary action"  onclick="{!c.gotoURL}" class="slds-m-left_x-small"></lightning:button>
+
+</aura:component>
