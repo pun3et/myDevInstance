@@ -1,3 +1,4 @@
+//Class to invoke the Callout on click of the button on the UI 
 public class InvokePartsFetch {
     @AuraEnabled
     public static Id fetchCqPartsData(){

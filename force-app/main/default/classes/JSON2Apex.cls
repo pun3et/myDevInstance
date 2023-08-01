@@ -3,7 +3,7 @@
 //
 // The supplied json has fields with names that are not valid in apex
 // and so can only be parsed with explicitly generated code, this option
-// was auto selected for you.
+// was auto selected for you. 
 
 public class JSON2Apex {
 

@@ -1,8 +1,10 @@
+/* Class performing the Http rest callout */
 public class CqDataCallout {
 
     public static HTTPResponse getPartsRecords(){
         
         HttpRequest req = new HttpRequest();
+        //setting the endpoint through Named Credential
         req.setEndpoint('callout:Fetch_CQ_part_details');
         req.setMethod('GET');
         req.setHeader('Content-type', 'application/json');   
