@@ -1,0 +1,15 @@
+<template>
+<lightning-card title="Syncronize CQ parts data" class="slds-p-around_medium">
+    <lightning-button class="slds-p-around_medium" variant="Brand" label="Syncronize" onclick={fetchData}></lightning-button>
+    <br>
+    <div>
+        <strong class="slds-p-around_medium">
+            Job status is {jobStatus.data}
+        </strong>
+    </div>
+</lightning-card>
+
+<div class="spinner" style="display:none;">
+    <lightning-spinner alternative-text="Loading" size="xx-small"></lightning-spinner>
+</div>
+</template>
